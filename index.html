@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning to Learn — Techniques and Strategies to Reach Your Academic Goals</title>
+<meta name="description" content="An interactive workshop on evidence-based learning strategies: retrieval practice, spaced repetition, elaboration, dual coding, interleaving, and the protégé effect. Presented by Jesse Rogers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFBF7;
+  --grid:#D9E4EF;
+  --ink:#16243A;
+  --ink-soft:#3C4C66;
+  --hl:#FFE24A;
+  --red:#BE3D1F;
+  --blue:#2B59C3;
+  --blue-deep:#1E3F8F;
+  --card:#FFFFFF;
+  --rule:#C9D4E2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:1.25rem}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  font-family:"Public Sans",system-ui,sans-serif;
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:28px 28px;
+  line-height:1.65;
+  font-size:1.0625rem;
+}
+.skip-link{
+  position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;
+  padding:.75rem 1.25rem;z-index:100;font-weight:600;
+}
+.skip-link:focus{left:0}
+a{color:var(--blue-deep)}
+a:hover{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:2px}
+
+/* ---------- Scroll progress bar ---------- */
+.progressbar{
+  position:fixed;top:0;left:0;right:0;height:6px;z-index:60;
+  background:rgba(22,36,58,.08);
+}
+.progressbar .fill{
+  height:100%;width:0;background:var(--hl);
+  border-right:3px solid var(--ink);
+}
+
+/* ---------- Floating pill ---------- */
+.pillnav{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:55;
+  font-family:"Archivo",sans-serif;font-weight:700;font-size:1rem;
+  background:var(--ink);color:#fff;border:2px solid var(--ink);
+  border-radius:999px;padding:.85rem 1.5rem;cursor:pointer;
+  box-shadow:0 6px 18px rgba(22,36,58,.3);
+}
+.pillnav:hover{background:var(--blue-deep)}
+.pillnav span{color:var(--hl)}
+
+/* ---------- Section modal ---------- */
+dialog#sectionModal{
+  border:2px solid var(--ink);border-radius:14px;padding:0;
+  width:min(92vw,420px);background:var(--paper);color:var(--ink);
+  box-shadow:0 20px 60px rgba(22,36,58,.35);
+}
+dialog#sectionModal::backdrop{background:rgba(22,36,58,.55)}
+.modal-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 1.4rem .9rem;border-bottom:2px dashed var(--rule);
+}
+.modal-head h2{
+  font-size:1.2rem;font-weight:800;margin:0;
+}
+.modal-close{
+  background:transparent;border:2px solid var(--rule);border-radius:50%;
+  width:2.2rem;height:2.2rem;font-size:1rem;cursor:pointer;color:var(--ink);
+  line-height:1;
+}
+.modal-close:hover{border-color:var(--ink);background:var(--hl)}
+.modal-list{list-style:none;padding:.6rem;margin:0}
+.modal-list a{
+  display:flex;align-items:center;gap:.9rem;text-decoration:none;
+  color:var(--ink);font-family:"Archivo",sans-serif;font-weight:700;
+  font-size:1.05rem;padding:.75rem .9rem;border-radius:8px;
+}
+.modal-list a:hover,.modal-list a:focus-visible{background:var(--hl)}
+.modal-list .rn{
+  font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:.85rem;
+  color:var(--red);min-width:1.6rem;text-align:center;
+}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:860px;margin:0 auto;padding:0 1.25rem}
+section.act{padding:4.5rem 0 3.5rem;border-bottom:2px dashed var(--rule)}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:.85rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:.5rem;
+}
+h1,h2,h3{font-family:"Archivo",sans-serif;line-height:1.08;letter-spacing:-.01em}
+h1{font-size:clamp(2.6rem,7vw,4.6rem);font-weight:900;font-stretch:80%}
+h2{font-size:clamp(2rem,5vw,3.1rem);font-weight:800;font-stretch:85%;margin-bottom:1.25rem}
+h3{font-size:clamp(1.3rem,3vw,1.6rem);font-weight:700;margin:2.25rem 0 .75rem}
+p{margin-bottom:1rem;max-width:68ch}
+ul.plain,ol.plain{margin:0 0 1rem 1.4rem}
+ul.plain li,ol.plain li{margin-bottom:.35rem}
+.timing{
+  font-family:"IBM Plex Mono",monospace;font-size:.85rem;color:var(--ink-soft);
+  margin-bottom:1.75rem;
+}
+
+/* ---------- Hero ---------- */
+header.hero{padding:5.5rem 0 4rem;border-bottom:2px dashed var(--rule)}
+header.hero .sub{
+  font-family:"IBM Plex Mono",monospace;color:var(--ink-soft);
+  font-size:1rem;margin-top:1rem;max-width:52ch;
+}
+.hero-thesis{
+  margin-top:2.5rem;font-family:"Archivo",sans-serif;font-weight:800;
+  font-size:clamp(1.4rem,3.6vw,2.1rem);line-height:1.25;max-width:24ch;
+}
+
+/* ---------- Highlighter signature ---------- */
+.hl{
+  background:linear-gradient(104deg,transparent .5%, var(--hl) 3%, var(--hl) 97%, transparent 99.5%);
+  padding:.05em .25em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+.bigline{
+  font-family:"Archivo",sans-serif;font-weight:900;font-stretch:82%;
+  font-size:clamp(1.9rem,5vw,3rem);line-height:1.25;margin:2rem 0;
+}
+
+/* ---------- Script + note blocks ---------- */
+.script{
+  background:var(--card);border-left:6px solid var(--blue);
+  padding:1.25rem 1.5rem;margin:1.25rem 0;border-radius:0 6px 6px 0;
+  box-shadow:2px 3px 0 rgba(22,36,58,.08);
+}
+.script .label{
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--blue-deep);font-weight:600;display:block;margin-bottom:.5rem;
+}
+.soundbite{
+  font-family:"Archivo",sans-serif;font-weight:800;font-size:1.35rem;
+  margin:1.5rem 0;padding-left:1rem;border-left:6px solid var(--hl);
+}
+
+/* ---------- Tool cards ---------- */
+.tool{
+  background:var(--card);border:1.5px solid var(--rule);border-radius:8px;
+  padding:1.75rem;margin:2rem 0;box-shadow:3px 4px 0 rgba(22,36,58,.08);
+}
+.tool h3{margin-top:0}
+.tool .tag{
+  display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.72rem;
+  letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  padding:.2rem .6rem;border-radius:3px;margin-right:.5rem;margin-bottom:.75rem;
+}
+.tag.problem{background:#FBE6DF;color:var(--red)}
+.tag.strategy{background:#E2EAFB;color:var(--blue-deep)}
+
+/* ---------- Timer widgets ---------- */
+.timerbox{
+  background:var(--ink);color:#fff;border-radius:10px;padding:2rem;
+  margin:2rem 0;text-align:center;
+}
+.timerbox .clock{
+  font-family:"IBM Plex Mono",monospace;font-size:clamp(3.5rem,10vw,6rem);
+  font-weight:600;letter-spacing:.04em;line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.timerbox .clock.warn{color:var(--hl)}
+.timerbox .clock.done{color:#FF8A65}
+.timerbox .controls{margin-top:1.25rem;display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+button.btn{
+  font-family:"Archivo",sans-serif;font-weight:700;font-size:1rem;
+  padding:.75rem 1.6rem;border-radius:6px;border:2px solid transparent;cursor:pointer;
+}
+button.btn.primary{background:var(--hl);color:var(--ink)}
+button.btn.primary:hover{background:#FFEB77}
+button.btn.ghost{background:transparent;color:#fff;border-color:#5A6B85}
+button.btn.ghost:hover{border-color:#fff}
+button.btn:disabled{opacity:.45;cursor:not-allowed}
+
+.wordgrid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:.6rem;margin:1.5rem 0;
+}
+.wordgrid span{
+  background:var(--card);border:1.5px solid var(--rule);border-radius:6px;
+  padding:.7rem .5rem;text-align:center;font-family:"Archivo",sans-serif;
+  font-weight:700;font-size:1.25rem;
+}
+.wordpanel.hidden-words .wordgrid{display:none}
+.wordpanel .curtain{
+  display:none;background:var(--card);border:2px dashed var(--rule);
+  border-radius:8px;padding:2.5rem;text-align:center;margin:1.5rem 0;
+  font-family:"IBM Plex Mono",monospace;color:var(--ink-soft);
+}
+.wordpanel.hidden-words .curtain{display:block}
+
+/* ---------- Formula explorer ---------- */
+.formula-explorer{
+  background:var(--card);border:1.5px solid var(--rule);border-radius:10px;
+  padding:2.25rem 1.5rem;margin:2rem 0;box-shadow:3px 4px 0 rgba(22,36,58,.08);
+}
+.qf{
+  font-family:"Georgia","Times New Roman",serif;font-size:clamp(1.7rem,5.5vw,3rem);
+  display:flex;align-items:center;justify-content:center;gap:.35em;
+  font-style:italic;flex-wrap:wrap;padding:.5rem 0 1rem;
+}
+.qf .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle}
+.qf .frac .num{padding:0 .3em .08em;border-bottom:2.5px solid currentColor;display:flex;align-items:center;gap:.15em}
+.qf .frac .den{padding:.08em .3em 0}
+.qf .sqrt{display:inline-flex;align-items:stretch}
+.qf .sqrt .rad{font-style:normal;font-size:1.15em;line-height:1;align-self:center}
+.qf .sqrt .radicand{border-top:2.5px solid currentColor;padding:.06em .18em 0 .12em}
+.qf sup{font-size:.55em}
+.qf .chunk{border-radius:6px;padding:.04em .1em;transition:background .2s}
+.qf .chunk.lit{background:var(--hl);box-shadow:0 0 0 3px var(--hl)}
+.qf .chunk.lit-outline{box-shadow:0 0 0 3px var(--red);border-radius:8px}
+.chunkbtns{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.75rem}
+.chunkbtns button{
+  font-family:"IBM Plex Mono",monospace;font-size:.85rem;font-weight:600;
+  padding:.6rem 1rem;border-radius:6px;border:2px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer;
+}
+.chunkbtns button[aria-pressed="true"]{
+  background:var(--ink);color:#fff;border-color:var(--ink);
+}
+.chunkbtns button:hover{border-color:var(--ink)}
+.chunk-label{
+  text-align:center;margin-top:1.25rem;min-height:4.5rem;
+}
+.chunk-label .name{
+  font-family:"Archivo",sans-serif;font-weight:800;font-size:1.4rem;display:block;
+}
+.chunk-label .desc{color:var(--ink-soft)}
+
+/* ---------- Video embeds ---------- */
+.video{
+  position:relative;padding-top:56.25%;border-radius:10px;overflow:hidden;
+  border:1.5px solid var(--rule);margin:1.75rem 0;background:#000;
+  box-shadow:3px 4px 0 rgba(22,36,58,.12);
+}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vidcap{
+  font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--ink-soft);
+  margin-top:-1.25rem;margin-bottom:1.75rem;
+}
+
+/* ---------- Close / footer ---------- */
+.mic-drop{
+  background:var(--ink);color:#fff;border-radius:12px;padding:3rem 2rem;
+  margin:2.5rem 0;text-align:center;
+}
+.mic-drop p{
+  font-family:"Archivo",sans-serif;font-weight:800;font-stretch:85%;
+  font-size:clamp(1.4rem,4vw,2.1rem);line-height:1.4;margin:0 auto;max-width:22ch;
+}
+.mic-drop .hl{color:var(--ink)}
+.linkrow{display:flex;gap:1rem;flex-wrap:wrap;margin:1.5rem 0}
+.linkrow a{
+  display:inline-block;font-family:"Archivo",sans-serif;font-weight:700;
+  padding:.8rem 1.5rem;border-radius:6px;text-decoration:none;
+}
+.linkrow a.spotify{background:#16243A;color:#fff}
+.linkrow a.spotify:hover{background:var(--blue-deep)}
+.linkrow a.linkedin{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.linkrow a.linkedin:hover{background:var(--hl)}
+footer{padding:3rem 0 4rem;color:var(--ink-soft);font-size:.95rem}
+.refs{font-size:.92rem}
+.refs ol{margin-left:1.4rem}
+.refs li{margin-bottom:.8rem;max-width:80ch}
+
+table.groups{
+  width:100%;border-collapse:collapse;margin:1.5rem 0;background:var(--card);
+  border:1.5px solid var(--rule);
+}
+table.groups th,table.groups td{
+  padding:.9rem 1rem;border:1px solid var(--rule);text-align:left;vertical-align:top;
+}
+table.groups th{
+  font-family:"Archivo",sans-serif;font-size:1.1rem;background:var(--ink);color:#fff;
+}
+.visually-hidden{
+  position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+  white-space:nowrap;
+}
+@media (max-width:640px){
+  .wordgrid{grid-template-columns:repeat(2,1fr)}
+  section.act{padding:3rem 0 2.5rem}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="progressbar" aria-hidden="true"><div class="fill" id="progressFill"></div></div>
+
+<button class="pillnav" id="pillNav" aria-haspopup="dialog">Skip to section <span aria-hidden="true">↴</span></button>
+
+<dialog id="sectionModal" aria-labelledby="modal-title">
+  <div class="modal-head">
+    <h2 id="modal-title">Skip to section</h2>
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+  </div>
+  <nav aria-label="Presentation sections">
+    <ul class="modal-list">
+      <li><a href="#act1"><span class="rn">I</span>The Experiment</a></li>
+      <li><a href="#act2"><span class="rn">II</span>How Experts See the World</a></li>
+      <li><a href="#act3"><span class="rn">III</span>Katherine Johnson &amp; Mental Models</a></li>
+      <li><a href="#act4"><span class="rn">IV</span>The Good News</a></li>
+      <li><a href="#act5"><span class="rn">V</span>The Tools</a></li>
+      <li><a href="#act6"><span class="rn">VI</span>Scientist of Your Own Learning</a></li>
+      <li><a href="#act7"><span class="rn">VII</span>Teach to Learn</a></li>
+      <li><a href="#close"><span class="rn">✦</span>Closing</a></li>
+      <li><a href="#refs"><span class="rn">§</span>References</a></li>
+    </ul>
+  </nav>
+</dialog>
+
+<main id="main">
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">A workshop with Jesse Rogers · Palm Beach State College</p>
+  <h1>Learning<br>to Learn</h1>
+  <p class="sub">Techniques and strategies to reach your academic goals — grounded in fifty years of learning science.</p>
+  <p class="hero-thesis">Learning is less about <em>who you are</em> and more about <span class="hl">what you do.</span></p>
+</header>
+
+<!-- ========================= ACT I ========================= -->
+<section class="act" id="act1" aria-labelledby="act1-h">
+  <p class="eyebrow">Act I</p>
+  <h2 id="act1-h">The Experiment</h2>
+  <p class="timing">≈ 12–15 minutes</p>
+
+  <h3>Warm up</h3>
+  <div class="script">
+    <span class="label">Together</span>
+    <p>Everyone stand up. Take a deep breath. Stretch your arms overhead. Roll your shoulders. Shake out any stress from the day.</p>
+    <p><strong>Panther Proud! Panther Strong!</strong></p>
+  </div>
+  <p>We often think learning happens only in our minds — but our bodies influence our focus, confidence, energy, and attention. Moving your body is a lever you can pull to prepare your mind. A one-minute stretch ritual before you study is free, and it works.</p>
+
+  <h3>Get ready</h3>
+  <p>Grab a piece of paper — lined, unlined, notebook paper, it doesn't matter. <strong>Do not photograph or screenshot the screen.</strong> You'll have two minutes. The goal is not to be perfect. The goal is simply to follow directions.</p>
+
+  <h3>Your group assignment</h3>
+  <table class="groups">
+    <caption class="visually-hidden">Group assignments based on birthday</caption>
+    <thead>
+      <tr>
+        <th scope="col">Group A — odd birthdays<br><span style="font-weight:400;font-size:.85rem">(born on the 1st, 3rd, 13th, 25th, 31st…)</span></th>
+        <th scope="col">Group B — even birthdays<br><span style="font-weight:400;font-size:.85rem">(born on the 2nd, 8th, 14th, 26th, 30th…)</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>For every word, count the <strong>letters</strong> and the <strong>vowels</strong>. Keep a running total of each. At the end, write down both totals across all 20 words. Your job is accuracy.</td>
+        <td>For every word, decide whether it represents something generally <strong>positive</strong> or generally <strong>negative</strong>. Keep score. Determine which side wins and by how much. Your job is accurate classification.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>Important:</strong> do not intentionally try to memorize the words. Just complete your group's task.</p>
+
+  <h3>The word list</h3>
+  <div class="wordpanel hidden-words" id="wordpanel">
+    <div class="curtain">Words hidden. Press “Show words &amp; start” when both groups are ready.</div>
+    <div class="wordgrid" aria-label="The 20 words">
+      <span>Puppy</span><span>Mountain</span><span>Pizza</span><span>Lightning</span>
+      <span>Grandmother</span><span>Spider</span><span>Victory</span><span>Bicycle</span>
+      <span>Chocolate</span><span>Firefighter</span><span>Dragon</span><span>Rainbow</span>
+      <span>Shark</span><span>Birthday</span><span>Castle</span><span>Hurricane</span>
+      <span>Music</span><span>Treasure</span><span>Rocket</span><span>Ocean</span>
+    </div>
+  </div>
+
+  <div class="timerbox">
+    <div class="clock" id="clock1" aria-hidden="true">2:00</div>
+    <p class="visually-hidden" role="status" aria-live="polite" id="clock1-live"></p>
+    <div class="controls">
+      <button class="btn primary" id="startWords">Show words &amp; start 2:00</button>
+      <button class="btn ghost" id="resetWords">Reset</button>
+    </div>
+  </div>
+
+  <h3>Prediction</h3>
+  <div class="script">
+    <span class="label">Ask</span>
+    <p>Quick prediction — and <strong>write your number down</strong> in the corner of your paper. How many words do you think you'll remember? Circle it. We'll come back to it.</p>
+  </div>
+
+  <h3>Surprise recall</h3>
+  <div class="script">
+    <span class="label">Say</span>
+    <p>Pens down. New task. Without talking to anyone, without looking anything up, without asking a neighbor: <strong>write down as many words from the list as you can remember.</strong> One minute. Go.</p>
+  </div>
+
+  <div class="timerbox">
+    <div class="clock" id="clock2" aria-hidden="true">1:00</div>
+    <p class="visually-hidden" role="status" aria-live="polite" id="clock2-live"></p>
+    <div class="controls">
+      <button class="btn primary" id="startRecall">Start 1:00 recall</button>
+      <button class="btn ghost" id="resetRecall">Reset</button>
+    </div>
+  </div>
+
+  <h3>Results &amp; debrief</h3>
+  <p>Count your words. In person: we'll average each group on the board. Virtual: type <em>“Group A – 7 words”</em> or <em>“Group B – 12 words”</em> in the chat.</p>
+  <ul class="plain">
+    <li>Who remembered the most words? Who remembered fewer than expected?</li>
+    <li>Look at your circled prediction — who was accurate? Who was way off?</li>
+    <li>Did anyone try to memorize despite the instructions?</li>
+    <li>What differences do we notice between the groups?</li>
+  </ul>
+
+  <h3>The reveal</h3>
+  <p>Typically, Group B remembers more words — because Group B was processing <strong>meaning</strong>, while Group A was processing <strong>surface features</strong>. This is not a party trick. Craik and Lockhart demonstrated in 1972 that memory is a byproduct of the <em>depth</em> at which we process information: semantic processing produces dramatically better retention than shallow processing.<a href="#ref1" aria-label="Reference 1"><sup>1</sup></a> You just replicated a foundational finding in cognitive psychology.</p>
+  <p>Now think about what happened. Nobody got more time. Nobody got extra information. Nobody became smarter during the activity. <strong>The strategy was different. The outcome was different.</strong></p>
+
+  <p class="bigline">Maybe it isn't a <span class="hl">YOU</span> problem.<br>Maybe it's a <span class="hl">STRATEGY</span> problem.</p>
+</section>
+
+<!-- ========================= ACT II ========================= -->
+<section class="act" id="act2" aria-labelledby="act2-h">
+  <p class="eyebrow">Act II</p>
+  <h2 id="act2-h">How Experts See the World</h2>
+  <p class="timing">≈ 5–7 minutes</p>
+
+  <p>If strategy matters, let's ask an interesting question: <strong>what separates beginners from experts?</strong> Is it intelligence? Talent? Or is something else happening?</p>
+
+  <h3>Chess masters and memory</h3>
+  <p>Researchers studied elite chess players and found something surprising. Masters could glance at a real game position for a few seconds and recreate it almost perfectly. The first assumption: “they must have incredible memories.”</p>
+  <p>Then the researchers showed <em>random</em> placements of pieces instead of real positions — and the masters lost most of their advantage, performing much like novices.<a href="#ref2" aria-label="Reference 2"><sup>2</sup></a></p>
+  <p><strong>What changed?</strong> The masters weren't memorizing pieces. They were recognizing patterns. Chase and Simon called this <span class="hl"><strong>chunking</strong></span> — organizing information into meaningful units.</p>
+
+  <div class="video">
+    <iframe src="https://www.youtube-nocookie.com/embed/JG-bKb07cAY" title="Video: chess masters, chunking, and memory (5 minutes 28 seconds)" loading="lazy" allowfullscreen allow="accelerometer; encrypted-media; picture-in-picture"></iframe>
+  </div>
+  <p class="vidcap">Chess &amp; chunking · 5:28</p>
+
+  <p class="soundbite">Experts don't always remember more. They organize information better.</p>
+</section>
+
+<!-- ========================= ACT III ========================= -->
+<section class="act" id="act3" aria-labelledby="act3-h">
+  <p class="eyebrow">Act III</p>
+  <h2 id="act3-h">Katherine Johnson &amp; Mental Models</h2>
+  <p class="timing">≈ 6–8 minutes</p>
+
+  <p>If chess masters use chunking, what does that look like in academics? Watch this scene from <em>Hidden Figures</em>, where NASA mathematician Katherine Johnson reconstructs classified calculations from memory.</p>
+
+  <div class="video">
+    <iframe src="https://www.youtube-nocookie.com/embed/JAEnv1PvBvw" title="Video: Hidden Figures chalkboard scene (1 minute 31 seconds)" loading="lazy" allowfullscreen allow="accelerometer; encrypted-media; picture-in-picture"></iframe>
+  </div>
+  <p class="vidcap">Hidden Figures — the chalkboard scene · 1:31</p>
+
+  <p>Most people watching that scene think: <em>“I wish I had her memory.”</em> But I don't think that's the lesson.</p>
+
+  <h3>How many pieces do you see?</h3>
+  <div class="formula-explorer">
+    <p style="text-align:center" class="eyebrow" id="qf-label">The quadratic formula — click a chunk</p>
+    <div class="qf" id="qf" role="img" aria-labelledby="qf-label qf-desc">
+      <span id="qf-desc" class="visually-hidden">x equals negative b plus or minus the square root of b squared minus four a c, all over two a</span>
+      <span aria-hidden="true">x&nbsp;=</span>
+      <span class="frac" aria-hidden="true">
+        <span class="num">
+          <span class="chunk c-vertex-nb">−b</span>
+          <span>±</span>
+          <span class="sqrt chunk c-roottype"><span class="rad">√</span><span class="radicand"><span class="chunk c-disc">b<sup>2</sup>−4ac</span></span></span>
+        </span>
+        <span class="den"><span class="chunk c-vertex-2a">2a</span></span>
+      </span>
+    </div>
+    <div class="chunkbtns" role="group" aria-label="Formula chunks">
+      <button type="button" data-chunk="disc" aria-pressed="false">Discriminant</button>
+      <button type="button" data-chunk="vertex" aria-pressed="false">Vertex</button>
+      <button type="button" data-chunk="roottype" aria-pressed="false">Root type</button>
+      <button type="button" data-chunk="whole" aria-pressed="false">The whole formula</button>
+    </div>
+    <div class="chunk-label" id="chunkLabel" aria-live="polite">
+      <span class="desc">A beginner sees dozens of symbols. Click a button to see what an expert sees.</span>
+    </div>
+  </div>
+
+  <p>A beginner sees symbols. An expert sees relationships. A beginner sees details. An expert sees structure.</p>
+  <p>I don't think Katherine Johnson was remembering hundreds of disconnected symbols. I think she was seeing meaningful chunks and relationships. <strong>What looks like superhuman memory is often highly organized knowledge.</strong></p>
+</section>
+
+<!-- ========================= ACT IV ========================= -->
+<section class="act" id="act4" aria-labelledby="act4-h">
+  <p class="eyebrow">Act IV</p>
+  <h2 id="act4-h">The Good News</h2>
+  <p class="timing">≈ 1–2 minutes</p>
+  <p>If expertise is built from chunking and understanding, that means we can <strong>practice</strong> building it. We don't have to wait until we're geniuses.</p>
+  <p>Researchers have spent decades studying how people learn — including a landmark review that graded ten common study techniques against real evidence.<a href="#ref3" aria-label="Reference 3"><sup>3</sup></a> You don't have to figure it all out through trial and error. <span class="hl">You can learn from what the science already knows.</span></p>
+</section>
+
+<!-- ========================= ACT V ========================= -->
+<section class="act" id="act5" aria-labelledby="act5-h">
+  <p class="eyebrow">Act V</p>
+  <h2 id="act5-h">The Tools</h2>
+  <p class="timing">≈ 12–15 minutes</p>
+
+  <div class="tool">
+    <h3>1 · Retrieval Practice</h3>
+    <p><span class="tag problem">Problem</span>Most students reread. Rereading feels productive — but it creates an illusion of learning.</p>
+    <p><span class="tag strategy">Better strategy</span>Close the notes. Try to recall. Use your brain <em>before</em> looking. Students who practiced retrieval retained far more a week later than students who repeatedly restudied — even though the restudiers <em>felt</em> more confident.<a href="#ref4" aria-label="Reference 4"><sup>4</sup></a></p>
+    <p><strong>Example:</strong> instead of reading Chapter 4 again, write everything you remember about Chapter 4 first. Then check.</p>
+    <p class="soundbite">Learning happens during retrieval, not just exposure.</p>
+  </div>
+
+  <div class="tool">
+    <h3>2 · Spaced Repetition</h3>
+    <p><span class="tag problem">Problem</span>Cramming creates short-term gains. Then forgetting happens.</p>
+    <p><span class="tag strategy">Better strategy</span>Short reviews spread over time — Day 1, Day 3, Day 7, Day 14. A synthesis of hundreds of studies confirms spacing beats massing for long-term retention.<a href="#ref5" aria-label="Reference 5"><sup>5</sup></a></p>
+    <p class="soundbite">Your brain remembers what it has to repeatedly recover.</p>
+  </div>
+
+  <div class="tool">
+    <h3>3 · Elaboration</h3>
+    <p><span class="tag problem">Problem</span>Memorizing isolated facts.</p>
+    <p><span class="tag strategy">Better strategy</span>Ask <em>why</em>, <em>how</em>, and <em>what does this connect to?</em> Generating explanations for why facts are true measurably improves learning.<a href="#ref3" aria-label="Reference 3"><sup>3</sup></a></p>
+    <p><strong>Example:</strong> don't memorize “mitochondria are the powerhouse of the cell.” Ask: <em>why does the cell need energy?</em></p>
+    <p class="soundbite">Meaning beats memorization. (You proved it yourself in Act I.)</p>
+  </div>
+
+  <div class="tool">
+    <h3>4 · Dual Coding</h3>
+    <p><span class="tag problem">Problem</span>Only one pathway into memory.</p>
+    <p><span class="tag strategy">Better strategy</span>Words plus pictures. Words plus diagrams. Words plus examples. Verbal and visual information are stored in separate but linked systems — two routes back to the idea.<a href="#ref6" aria-label="Reference 6"><sup>6</sup></a></p>
+    <p><strong>Example:</strong> turn notes into mind maps, sketches, flowcharts.</p>
+    <p class="soundbite">Give your brain more than one road back to the answer.</p>
+  </div>
+
+  <div class="tool">
+    <h3>5 · Interleaving</h3>
+    <p><span class="tag problem">Problem</span>Practicing only one type of problem at a time.</p>
+    <p><span class="tag strategy">Better strategy</span>Mix problem types together — just like a game doesn't tell you which move is coming next. Students who interleaved math practice did worse <em>during</em> practice but dramatically better on the final test.<a href="#ref7" aria-label="Reference 7"><sup>7</sup></a></p>
+    <p class="soundbite">Harder during practice. Easier during performance.</p>
+  </div>
+</section>
+
+<!-- ========================= ACT VI ========================= -->
+<section class="act" id="act6" aria-labelledby="act6-h">
+  <p class="eyebrow">Act VI</p>
+  <h2 id="act6-h">Scientist of Your Own Learning</h2>
+  <p class="timing">≈ 3–4 minutes</p>
+
+  <p>There is no single strategy that works best for every student in every situation. So run experiments on yourself:</p>
+  <ul class="plain">
+    <li>Flashcards vs. concept maps</li>
+    <li>Morning studying vs. evening studying</li>
+    <li>Group study vs. solo study</li>
+  </ul>
+  <p>Track results. Keep what works. Change what doesn't.</p>
+
+  <h3>Your commitment</h3>
+  <div class="script">
+    <span class="label">Write this down</span>
+    <p>On your paper, write <strong>one technique</strong> from today and <strong>one specific class</strong> you'll test it in this week. One sentence: <em>“This week, in ___, I will ___.”</em></p>
+  </div>
+  <p>Research on implementation intentions shows that specifying when, where, and how you'll act dramatically increases follow-through compared to intention alone.<a href="#ref8" aria-label="Reference 8"><sup>8</sup></a></p>
+
+  <p class="soundbite">Become a scientist of your own learning.</p>
+</section>
+
+<!-- ========================= ACT VII ========================= -->
+<section class="act" id="act7" aria-labelledby="act7-h">
+  <p class="eyebrow">Act VII</p>
+  <h2 id="act7-h">Teach to Learn</h2>
+  <p class="timing">≈ 4–5 minutes</p>
+
+  <p>There's one more tool, and it's the most powerful one on the list. Researchers call it the <span class="hl"><strong>protégé effect</strong></span>: students who study material expecting to <em>teach</em> it learn more deeply than students who study expecting a test<a href="#ref9" aria-label="Reference 9"><sup>9</sup></a> — and actually explaining material to others is one of the most effective learning activities we know of.<a href="#ref10" aria-label="Reference 10"><sup>10</sup></a></p>
+  <p>Teaching forces retrieval, elaboration, and chunking all at once. It's every tool from today, running simultaneously.</p>
+
+  <h3>I practice what I preach</h3>
+  <p>Here's my appearance on Palm Beach State's <strong>Panther Experience</strong> podcast:</p>
+  <div class="linkrow">
+    <a class="spotify" href="https://open.spotify.com/episode/3Sr5OQ8iWgHX0k72slcL84" rel="noopener">▶ Listen on Spotify — Panther Experience</a>
+  </div>
+
+  <p>And here's the thing: <strong>your generation has distribution mine never had.</strong> YouTube. Spotify. Substack. You don't need anyone's approval to publish. Most people your age consume hours of content a day — the ones who pull ahead flip a fraction of that time into <em>creating</em>.</p>
+  <p>So start one. A podcast, a channel, a newsletter — a lab notebook for your own learning, in public.</p>
+  <p class="bigline">And when you do…<br><span class="hl">invite me. I'd love to be your first guest.</span></p>
+</section>
+
+<!-- ========================= CLOSE ========================= -->
+<section class="act" id="close" aria-labelledby="close-h">
+  <p class="eyebrow">Closing</p>
+  <h2 id="close-h">The Next Thing</h2>
+  <p>Technologies will change. Jobs will change. The world will change. The people who thrive won't be the people who already know everything. They'll be the people who know how to learn the next thing.</p>
+  <div class="mic-drop">
+    <p>Don't label yourself.<br>Test your methods.<br>Keep what works.<br>Change what doesn't.<br><span class="hl">Become a scientist of your own learning.</span><br>And teach what you learn.</p>
+  </div>
+  <h3>Stay in touch</h3>
+  <div class="linkrow">
+    <a class="spotify" href="https://open.spotify.com/episode/3Sr5OQ8iWgHX0k72slcL84" rel="noopener">▶ Panther Experience episode</a>
+    <a class="linkedin" href="https://www.linkedin.com/in/jesse-rogers-42256797" rel="noopener">Connect on LinkedIn</a>
+  </div>
+</section>
+
+<!-- ========================= REFERENCES ========================= -->
+<section class="act refs" id="refs" aria-labelledby="refs-h">
+  <p class="eyebrow">Sources</p>
+  <h2 id="refs-h">References</h2>
+  <ol>
+    <li id="ref1">Craik FIM, Lockhart RS. Levels of processing: a framework for memory research. <em>J Verbal Learning Verbal Behav</em>. 1972;11(6):671-684. doi:10.1016/S0022-5371(72)80001-X</li>
+    <li id="ref2">Chase WG, Simon HA. Perception in chess. <em>Cogn Psychol</em>. 1973;4(1):55-81. doi:10.1016/0010-0285(73)90004-2</li>
+    <li id="ref3">Dunlosky J, Rawson KA, Marsh EJ, Nathan MJ, Willingham DT. Improving students' learning with effective learning techniques: promising directions from cognitive and educational psychology. <em>Psychol Sci Public Interest</em>. 2013;14(1):4-58. doi:10.1177/1529100612453266</li>
+    <li id="ref4">Roediger HL III, Karpicke JD. Test-enhanced learning: taking memory tests improves long-term retention. <em>Psychol Sci</em>. 2006;17(3):249-255. doi:10.1111/j.1467-9280.2006.01693.x</li>
+    <li id="ref5">Cepeda NJ, Pashler H, Vul E, Wixted JT, Rohrer D. Distributed practice in verbal recall tasks: a review and quantitative synthesis. <em>Psychol Bull</em>. 2006;132(3):354-380. doi:10.1037/0033-2909.132.3.354</li>
+    <li id="ref6">Paivio A. <em>Mental Representations: A Dual Coding Approach</em>. New York, NY: Oxford University Press; 1986.</li>
+    <li id="ref7">Rohrer D, Taylor K. The shuffling of mathematics problems improves learning. <em>Instr Sci</em>. 2007;35(6):481-498. doi:10.1007/s11251-007-9015-8</li>
+    <li id="ref8">Gollwitzer PM. Implementation intentions: strong effects of simple plans. <em>Am Psychol</em>. 1999;54(7):493-503. doi:10.1037/0003-066X.54.7.493</li>
+    <li id="ref9">Nestojko JF, Bui DC, Kornell N, Bjork EL. Expecting to teach enhances learning and organization of knowledge in free recall of text passages. <em>Mem Cognit</em>. 2014;42(7):1038-1048. doi:10.3758/s13421-014-0416-z</li>
+    <li id="ref10">Fiorella L, Mayer RE. The relative benefits of learning by teaching and teaching expectancy. <em>Contemp Educ Psychol</em>. 2013;38(4):281-288. doi:10.1016/j.cedpsych.2013.06.001</li>
+  </ol>
+</section>
+
+<footer>
+  <p>Learning to Learn · Jesse Rogers · Palm Beach State College. Film and video clips are linked/embedded from their original sources for educational discussion.</p>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Scroll progress ---------- */
+  var fill = document.getElementById("progressFill");
+  function updateProgress(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    fill.style.width = pct + "%";
+  }
+  window.addEventListener("scroll", updateProgress, {passive:true});
+  window.addEventListener("resize", updateProgress);
+  updateProgress();
+
+  /* ---------- Section modal ---------- */
+  var modal = document.getElementById("sectionModal");
+  var pill = document.getElementById("pillNav");
+  pill.addEventListener("click", function(){ modal.showModal(); });
+  document.getElementById("modalClose").addEventListener("click", function(){ modal.close(); });
+  modal.addEventListener("click", function(e){
+    if(e.target === modal) modal.close(); /* click on backdrop */
+  });
+  modal.querySelectorAll(".modal-list a").forEach(function(a){
+    a.addEventListener("click", function(){ modal.close(); });
+  });
+
+  /* ---------- Timers ---------- */
+  function makeTimer(opts){
+    var remaining = opts.seconds, total = opts.seconds, handle = null;
+    var clock = document.getElementById(opts.clockId);
+    var live = document.getElementById(opts.liveId);
+    function fmt(s){
+      var m = Math.floor(s/60), sec = s%60;
+      return m + ":" + (sec<10?"0":"") + sec;
+    }
+    function render(){
+      clock.textContent = fmt(remaining);
+      clock.classList.toggle("warn", remaining<=15 && remaining>0);
+      clock.classList.toggle("done", remaining===0);
+    }
+    function announce(msg){ live.textContent = msg; }
+    function beep(){
+      try{
+        var ctx = new (window.AudioContext||window.webkitAudioContext)();
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.value = 660;
+        g.gain.setValueAtTime(0.15, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.7);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(); o.stop(ctx.currentTime + 0.7);
+      }catch(e){}
+    }
+    function tick(){
+      remaining--;
+      render();
+      if(remaining===30) announce("30 seconds remaining");
+      if(remaining<=0){
+        clearInterval(handle); handle = null;
+        announce("Time is up");
+        beep();
+        if(opts.onDone) opts.onDone();
+      }
+    }
+    return {
+      start:function(){
+        if(handle) return;
+        remaining = total; render();
+        announce("Timer started: " + fmt(total));
+        if(opts.onStart) opts.onStart();
+        handle = setInterval(tick, 1000);
+      },
+      reset:function(){
+        clearInterval(handle); handle = null;
+        remaining = total; render();
+        announce("Timer reset");
+        if(opts.onReset) opts.onReset();
+      }
+    };
+  }
+
+  var wordpanel = document.getElementById("wordpanel");
+  var startWordsBtn = document.getElementById("startWords");
+
+  var t1 = makeTimer({
+    seconds:120, clockId:"clock1", liveId:"clock1-live",
+    onStart:function(){
+      wordpanel.classList.remove("hidden-words");
+      startWordsBtn.disabled = true;
+    },
+    onDone:function(){
+      wordpanel.classList.add("hidden-words");
+      startWordsBtn.disabled = false;
+    },
+    onReset:function(){
+      wordpanel.classList.add("hidden-words");
+      startWordsBtn.disabled = false;
+    }
+  });
+  startWordsBtn.addEventListener("click", t1.start);
+  document.getElementById("resetWords").addEventListener("click", t1.reset);
+
+  var t2 = makeTimer({seconds:60, clockId:"clock2", liveId:"clock2-live"});
+  document.getElementById("startRecall").addEventListener("click", t2.start);
+  document.getElementById("resetRecall").addEventListener("click", t2.reset);
+
+  /* ---------- Quadratic formula chunk explorer ---------- */
+  var chunkInfo = {
+    disc: {
+      name: "The discriminant: b² − 4ac",
+      desc: "One idea, not four symbols. Its sign tells you everything about the solutions before you solve anything."
+    },
+    vertex: {
+      name: "The vertex: x = −b / 2a",
+      desc: "Hiding inside the formula is the x-coordinate of the parabola's vertex — the axis of symmetry. One idea."
+    },
+    roottype: {
+      name: "Root type: ±√(b² − 4ac)",
+      desc: "This piece determines the number and type of solutions: two real, one repeated, or two complex. One idea."
+    },
+    whole: {
+      name: "The whole formula",
+      desc: "A system for finding roots: start at the vertex, then step left and right by the same amount. One idea built from smaller ones."
+    }
+  };
+  var chunkMap = {
+    disc: [".c-disc"],
+    vertex: [".c-vertex-nb", ".c-vertex-2a"],
+    roottype: [".c-roottype"],
+    whole: [".c-disc", ".c-vertex-nb", ".c-vertex-2a", ".c-roottype"]
+  };
+  var qf = document.getElementById("qf");
+  var label = document.getElementById("chunkLabel");
+  var buttons = document.querySelectorAll(".chunkbtns button");
+
+  function clearChunks(){
+    qf.querySelectorAll(".chunk").forEach(function(el){
+      el.classList.remove("lit","lit-outline");
+    });
+    buttons.forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+  }
+  buttons.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var key = btn.getAttribute("data-chunk");
+      var wasOn = btn.getAttribute("aria-pressed") === "true";
+      clearChunks();
+      if(wasOn){
+        label.innerHTML = '<span class="desc">A beginner sees dozens of symbols. Click a button to see what an expert sees.</span>';
+        return;
+      }
+      btn.setAttribute("aria-pressed","true");
+      chunkMap[key].forEach(function(sel){
+        qf.querySelectorAll(sel).forEach(function(el){
+          el.classList.add(key === "roottype" || key === "whole" ? (sel === ".c-roottype" ? "lit-outline" : "lit") : "lit");
+          if(key === "roottype") el.classList.add("lit");
+        });
+      });
+      label.innerHTML = '<span class="name">' + chunkInfo[key].name + '</span><span class="desc">' + chunkInfo[key].desc + '</span>';
+    });
+  });
+})();
+</script>
+</body>
+</html>
+
