@@ -177,12 +177,20 @@ CC0 was chosen because learning how to learn should be as accessible as possible
 
 ## References
 Craik FIM, Lockhart RS. Levels of processing: a framework for memory research. J Verbal Learning Verbal Behav. 1972;11(6):671-684. doi:10.1016/S0022-5371(72)80001-X
+
 Chase WG, Simon HA. Perception in chess. Cogn Psychol. 1973;4(1):55-81. doi:10.1016/0010-0285(73)90004-2
+
 Dunlosky J, Rawson KA, Marsh EJ, Nathan MJ, Willingham DT. Improving students' learning with effective learning techniques: promising directions from cognitive and educational psychology. Psychol Sci Public Interest. 2013;14(1):4-58. doi:10.1177/1529100612453266
+
 Roediger HL III, Karpicke JD. Test-enhanced learning: taking memory tests improves long-term retention. Psychol Sci. 2006;17(3):249-255. doi:10.1111/j.1467-9280.2006.01693.x
+
 Cepeda NJ, Pashler H, Vul E, Wixted JT, Rohrer D. Distributed practice in verbal recall tasks: a review and quantitative synthesis. Psychol Bull. 2006;132(3):354-380. doi:10.1037/0033-2909.132.3.354
+
 Paivio A. Mental Representations: A Dual Coding Approach. New York, NY: Oxford University Press; 1986.
+
 Rohrer D, Taylor K. The shuffling of mathematics problems improves learning. Instr Sci. 2007;35(6):481-498. doi:10.1007/s11251-007-9015-8
+
 Gollwitzer PM. Implementation intentions: strong effects of simple plans. Am Psychol. 1999;54(7):493-503. doi:10.1037/0003-066X.54.7.493
+
 Nestojko JF, Bui DC, Kornell N, Bjork EL. Expecting to teach enhances learning and organization of knowledge in free recall of text passages. Mem Cognit. 2014;42(7):1038-1048. doi:10.3758/s13421-014-0416-z
 Fiorella L, Mayer RE. The relative benefits of learning by teaching and teaching expectancy. Contemp Educ Psychol. 2013;38(4):281-288. doi:10.1016/j.cedpsych.2013.06.001
