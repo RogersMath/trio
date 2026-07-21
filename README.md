@@ -9,7 +9,7 @@ Built and presented by Jesse Rogers for TRiO students at Palm Beach State Colleg
 
 ## Live Site
 
-(Learn to Learn)[https://rogersmath.github.io/trio/]
+[Learning to Learn](https://rogersmath.github.io/trio/)
 
 ## Overview
 
